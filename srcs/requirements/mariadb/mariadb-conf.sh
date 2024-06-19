@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#--------------mariadb start--------------#
-service mariadb start # start mariadb
-sleep 5 # wait for mariadb to start
+# Start MariaDB using OpenRC
+rc-service mariadb start
+sleep 5
 
 #--------------mariadb config--------------#
 # Create database if not exists
