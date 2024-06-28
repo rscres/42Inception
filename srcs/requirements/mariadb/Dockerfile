@@ -7,10 +7,14 @@ FROM alpine:3.19
 RUN apk update && apk upgrade --no-cache
 
 # install the required packages
-RUN apk add mariadb
+RUN apk add --no-cache openrc mariadb mariadb-client mariadb-common
+
+# start openrc
+RUN openrc
+RUN touch /run/openrc/softlevel
 
 # copy file from host to container
-COPY ./mariadb-conf.sh /mariadb-conf.sh
+COPY ./mariadb-conf.sh /
 
 # set permissions to the file
 RUN chmod +x mariadb-conf.sh

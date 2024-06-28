@@ -2,20 +2,20 @@ version: "3.8"
 
 # the services part
 services:
-#mariadb
+  #mariadb
   mariadb:
     image: mariadb:user
     container_name: mariadb
     build: ./srcs/requirements/mariadb
     volumes:
-      - ~/rseelaen/data/mariadb:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     env_file :
       - ./srcs/.env
     networks :
       - inception
     restart: always
 
-#nginx
+  #nginx
   nginx:
     image: nginx:user
     container_name: nginx
@@ -25,12 +25,12 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - ~/rseelaen/data/wordpress:/var/www/wordpress
+      - wordpress:/var/www/html/wordpress
     networks:
       - inception
     restart: always
 
-#wordpress
+  #wordpress
   wordpress:
     image: wordpress:user
     container_name: wordpress
@@ -38,7 +38,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - ~/rseelaen/data/wordpress:/var/www/wordpress
+      - wordpress:/var/www/html/wordpress
     env_file :
       - ./srcs/.env
     networks:
@@ -49,16 +49,14 @@ services:
 volumes:
   mariadb:
     name: mariadb
-    driver: local
     driver_opts:
-      device: ~/rseelaen/data/mariadb
+      device: /home/user42/rseelaen/data/mariadb
       o : bind
       type : none
   wordpress:
     name: wordpress
-    driver: local
     driver_opts:
-      device: ~/rseelaen/data/wordpress
+      device: /home/user42/rseelaen/data/wordpress
       o : bind
       type : none
 
