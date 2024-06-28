@@ -35,6 +35,7 @@ fi
 
 # download wordpress core files
 # wp core download --allow-root
+wp config create
 # create wp-config.php file with database details
 wp core config --dbhost=mariadb:3306 --dbname="$MYSQL_DB" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --allow-root
 # install wordpress with the given title, admin username, password and email
