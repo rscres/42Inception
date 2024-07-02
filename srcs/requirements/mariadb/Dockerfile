@@ -1,17 +1,13 @@
-# Dockerfile for MariaDB
+# Set Debian as base image
+FROM debian:oldstable
 
-# Use Alpine 3.19 as the base image
-FROM alpine:3.19
-
-# update and upgrade the system
-RUN apk update && apk upgrade --no-cache
+# update the system
+RUN apt update -y
 
 # install the required packages
-RUN apk add --no-cache openrc mariadb mariadb-client mariadb-common
+RUN apt install --no-install-recommends --no-install-suggests -y mariadb-server
 
-# start openrc
-RUN openrc
-RUN touch /run/openrc/softlevel
+EXPOSE 3306/tcp
 
 # copy file from host to container
 COPY ./mariadb-conf.sh /
