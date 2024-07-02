@@ -26,6 +26,8 @@ services:
       - wordpress
     volumes:
       - wordpress:/var/www/wordpress
+    env_file :
+      - ./srcs/.env
     networks:
       - inception
     restart: always

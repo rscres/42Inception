@@ -1,11 +1,9 @@
 # Set Debian as base image
 FROM debian:oldstable
 
-# update the system
-RUN apt update -y
-
-# install the required packages
-RUN apt install --no-install-recommends --no-install-suggests -y mariadb-server
+# update the system and install the required packages
+RUN apt update -y &&\
+    apt install --no-install-recommends --no-install-suggests -y mariadb-server
 
 EXPOSE 3306/tcp
 
