@@ -7,6 +7,8 @@ services:
     image: mariadb:user
     container_name: mariadb
     build: ./srcs/requirements/mariadb
+    ports:
+      - "3306:3306"
     volumes:
       - mariadb:/var/lib/mysql
     env_file :
