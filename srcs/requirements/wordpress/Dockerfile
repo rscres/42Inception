@@ -3,7 +3,7 @@ FROM debian:oldstable
 
 # update the system and install packages
 RUN apt update -y &&\
-    apt install -y --no-install-recommends --no-install-suggests curl php php7.4-fpm php-mysql mariadb-client netcat ca-certificates &&\
+    apt install -y curl php php7.4-fpm php-mysql mariadb-client netcat ca-certificates &&\
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # Install WP-CLI

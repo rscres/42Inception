@@ -3,15 +3,15 @@ FROM debian:oldstable
 
 # Update the system
 RUN apt update -y &&\
-    apt install -y --no-install-recommends --no-install-suggests nginx openssl &&\
+    apt install -y nginx openssl &&\
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # Create the ssl directory and Generate the ssl certificate
 RUN mkdir -p /etc/nginx/ssl &&\
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    openssl req -newkey -sha256 -x509 -nodes -days 365 -newkey rsa:2048 \
     -out /etc/nginx/ssl/inception.crt \
     -keyout /etc/nginx/ssl/inception.key \
-    -subj "/C=BR/ST=SP/L=SaoPaulo/O=42/OU=42SP/CN=rseelaen.42.fr"
+    -subj "/C=BR/ST=SaoPaulo/L=SaoPaulo/O=42/OU=42SP/CN=rseelaen.42.fr"
 
 # Copy the nginx configuration file
 COPY ./nginx.conf /etc/nginx/
