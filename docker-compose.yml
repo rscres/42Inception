@@ -39,6 +39,8 @@ services:
     image: wordpress:user
     container_name: wordpress
     build: ./srcs/requirements/wordpress
+    ports:
+      - "8080:80"
     depends_on:
       - mariadb
     volumes:
