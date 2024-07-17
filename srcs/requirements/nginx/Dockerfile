@@ -20,7 +20,7 @@ COPY ./nginx.conf /etc/nginx/
 RUN mkdir -p /var/www/wordpress &&\
     chown -R www-data:www-data /var/www/wordpress
 
-EXPOSE 80/tcp
+EXPOSE 443
 
 # Define the command to run when the container starts
 CMD ["nginx", "-g", "daemon off;"]
