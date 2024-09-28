@@ -51,6 +51,21 @@ services:
       - inception
     restart: always
 
+  #bonus
+  #site
+  website:
+    image: website
+    build:
+      context: ./srcs/bonus/website
+    ports:
+      - "1029:1029"
+    container_name: website
+    networks:
+      - inception
+    restart:
+      always
+
+
 # the volumes part
 volumes:
   mariadb:

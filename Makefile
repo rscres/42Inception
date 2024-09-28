@@ -26,8 +26,6 @@ start:
 
 # build the containers
 build:
-	@chmod +x host-setup.sh
-	@./host-setup.sh
 	docker-compose -f ./docker-compose.yml build
 
 # clean the containers
