@@ -5,7 +5,7 @@ RUN apt-get update -y &&\
     apt-get install -y mariadb-server net-tools &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 3306/tcp
+EXPOSE 3306
 
 # copy file from host to container
 COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
