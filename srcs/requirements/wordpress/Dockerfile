@@ -1,23 +1,41 @@
-# Set Debian as base image
-FROM debian:oldstable
+FROM debian:buster
 
-# update the system and install packages
-RUN apt update -y &&\
-    apt install -y curl php php7.4-fpm php-mysql mariadb-client netcat ca-certificates &&\
-    apt clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install \
+	wget \
+	curl \
+	bash \
+	php \
+	php-cgi \
+	php-mysql \
+	php-fpm \
+	php-pdo \
+	php-gd php-cli \
+	php-mbstring \
+	redis \
+	php-redis \
+	&& rm -rf /var/lib/apt/lists/*
 
-# Install WP-CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar &&\
-    chmod +x wp-cli.phar &&\
-    mv wp-cli.phar /usr/local/bin/wp
+# I need to install wp_cli command and put it in the right directory /usr/local/bin
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+  && chmod +x wp-cli.phar \
+  && mv wp-cli.phar /usr/local/bin/wp
 
-EXPOSE 443 80
+# Copy the .conf in the html directory
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
-# copy the wordpress configuration script to the root directory in the container
-COPY ./wordpress-conf.sh /
+#Create the folder to enable php start
+RUN mkdir /run/php
 
-# change the permission of the script to make it executable
-RUN  chmod +x wordpress-conf.sh
+#we copy the script, give the right to launch it in local on our computer
+COPY ./tools/create_wordpress.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/create_wordpress.sh
+ENTRYPOINT ["/usr/local/bin/create_wordpress.sh"]
 
-# define the entrypoint command to run when the container starts
-ENTRYPOINT ["./wordpress-conf.sh"]
+#We go the html directory
+WORKDIR /var/www/html/
+
+#We expose the 9000 port
+EXPOSE 9000
+
+#Launch PHP FPM in foreground and ignore deamonize from conf file (-F)
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
