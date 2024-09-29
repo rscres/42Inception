@@ -81,8 +81,8 @@ mariadb -e "CREATE USER IF NOT EXISTS \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYS
 mariadb -e "GRANT ALL PRIVILEGES ON ${MYSQL_DB}.* TO \`${MYSQL_USER}\`@'%';"
 mariadb -e "FLUSH PRIVILEGES;"
 
-# # service mariadb status
-# mariadb-admin shutdown
+# service mariadb status
+mariadb-admin shutdown
 
-# # Restart mariadb with new config in the background to keep the container running
-# exec mysqld_safe --port=3306 --bind-address=0.0.0.0 --datadir='/var/lib/mysql'
+# Restart mariadb with new config in the background to keep the container running
+exec mysqld_safe --port=3306 --bind-address=0.0.0.0 --datadir='/var/lib/mysql'
