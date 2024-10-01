@@ -17,8 +17,8 @@ RUN mkdir -p /etc/nginx/ssl &&\
 COPY ./nginx.conf /etc/nginx/
 
 # Create the wordpress directory and change the owner of the wordpress directory to www-data
-RUN mkdir -p /var/www/wordpress &&\
-    chown -R www-data:www-data /var/www/wordpress
+RUN mkdir -p /var/www/html &&\
+    chown -R www-data:www-data /var/www/html
 
 EXPOSE 443
 

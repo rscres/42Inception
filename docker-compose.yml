@@ -27,7 +27,7 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     env_file :
       - ./srcs/.env
     networks:
@@ -40,11 +40,12 @@ services:
     container_name: wordpress
     build: ./srcs/requirements/wordpress
     ports:
-      - "8080:80"
+      - "9000:9000"
+    #   - "8080:80"
     depends_on:
       - mariadb
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     env_file :
       - ./srcs/.env
     networks:
