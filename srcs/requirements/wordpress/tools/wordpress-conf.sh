@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 10
+
 wp config create --allow-root --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD"  --dbhost=mariadb --dbprefix="wp_"
 
 wp core install --allow-root --path=/var/www/html --title="$WP_TITLE" --url=$DOMAIN_NAME --admin_user=$WP_ADMIN_N --admin_password=$WP_ADMIN_P --admin_email=$WP_ADMIN_E
