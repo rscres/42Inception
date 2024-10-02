@@ -14,7 +14,7 @@ fi
 mysqld_safe --nowatch &
 
 # Wait for MariaDB to be ready
-sleep 10
+sleep 5
 
 # Create database, user, and set permissions
 mariadb -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;"
