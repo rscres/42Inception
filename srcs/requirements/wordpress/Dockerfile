@@ -17,6 +17,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # Copy the .conf in the html directory
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
+#We expose the 9000 port
+EXPOSE 9000
+
 # Create the folder to enable php start
 RUN mkdir /run/php
 
@@ -25,11 +28,9 @@ RUN chown -R www-data:www-data /var/www/html && chmod 755 /var/www/html
 #we copy the script, give the right to launch it in local on our computer
 COPY ./tools/wordpress-conf.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wordpress-conf.sh
+
+# Set the entrypoint to the script
 ENTRYPOINT ["/usr/local/bin/wordpress-conf.sh"]
 
-#We expose the 9000 port
-EXPOSE 9000
-
-#Launch PHP FPM in foreground and ignore deamonize from conf file (-F)
-CMD ["/usr/sbin/php-fpm7.4", "-F"]
-
+# Default command to run PHP-FPM in the foreground
+CMD ["php-fpm7.4", "-F"]
