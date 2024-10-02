@@ -4,8 +4,8 @@ FROM debian:oldstable
 WORKDIR /var/www/html/
 
 RUN apt-get update &&\
-    apt-get -y install wget curl bash php php-cgi php-mysql php-fpm\
-    php-pdo php-gd php-cli php-mbstring mariadb-client &&\
+    apt-get -y install curl php php-cgi php-mysql php-fpm\
+    php-pdo php-gd php-cli mariadb-client &&\
     rm -rf /var/lib/apt/lists/*
 
 # install wordpress cli
@@ -32,3 +32,4 @@ EXPOSE 9000
 
 #Launch PHP FPM in foreground and ignore deamonize from conf file (-F)
 CMD ["/usr/sbin/php-fpm7.4", "-F"]
+
